@@ -1,33 +1,72 @@
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* --- NOVA PALETA "GARIMPO" --- */
+  --brand-pink: #eb68b3;   /* Rosa Chiclete / Destaque */
+  --brand-white: #fcfefd;  /* Branco Off-White (Fundo Light) */
+  --brand-grey: #797979;   /* Cinza Detalhes */
+  
+  --neon-yellow: #FFD000;  /* Mantido para detalhes de atenção */
+  --neon-green: #06FF6B;   /* Mantido para "Frete Grátis" etc */
+  
+  /* Mapeamento para o Sistema Antigo (Para não quebrar componentes) */
+  --neon-magenta: var(--brand-pink); 
+  --neon-cyan: #00E1FF; /* Ainda usado em alguns detalhes dark */
+
+  /* --- VARIÁVEIS PADRÃO (LIGHT MODE - Default agora) --- */
+  --bg-main: var(--brand-white);
+  --bg-card: #F4F4F4;
+  --bg-structure: #E0E0E0;
+  --bg-glass: rgba(252, 254, 253, 0.9); /* Vidro claro */
+  
+  --text-main: #000000;      /* Preto puro para contraste no branco */
+  --text-muted: var(--brand-grey);
+  --border-color: #ddd;
+  
+  /* Cor das partículas do Canvas (Rosa no claro fica lindo) */
+  --particle-color: var(--brand-pink); 
+
+  /* Fontes */
+  --font-display: var(--font-oswald), sans-serif;
+  --font-body: var(--font-urbanist), sans-serif;
+  --font-script: var(--font-script), cursive; /* Nova fonte */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* --- TEMA ESCURO (DARK MODE - Vibe Night/Street) --- */
+[data-theme='dark'] {
+  --bg-main: #0D0D0D;        /* Preto Profundo */
+  --bg-card: #1A1A1A;
+  --bg-structure: #262626;
+  --bg-glass: rgba(13, 13, 13, 0.85);
+
+  --text-main: #FFFFFF;
+  --text-muted: #b0b0b0;     /* Cinza mais claro para ler no preto */
+  --border-color: #333;
+
+  /* No escuro, o rosa também brilha */
+  --particle-color: var(--brand-pink); 
+}
+
+/* Reset e Base */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 a {
@@ -35,8 +74,42 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* --- CLASSES UTILITÁRIAS (ESTILO TEEN/CAPRICHO) --- */
+
+/* 1. Texto Script (Assinatura/Brush) */
+.script-font {
+  font-family: var(--font-script);
+  font-weight: 400;
+  text-transform: none; /* Script não pode ser uppercase forçado */
+  color: var(--brand-pink);
+}
+
+/* 2. Efeito Sticker (Letra Branca com Borda Preta e Sombra Dura) */
+/* Igual aos stories "SUAS PEÇAS" */
+.sticker-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #fff;
+  /* Borda preta em volta da letra */
+  -webkit-text-stroke: 2px #000; 
+  /* Sombra dura (sem blur) para parecer adesivo */
+  text-shadow: 4px 4px 0px var(--brand-pink); 
+  line-height: 0.9;
+  letter-spacing: -1px;
+  transform: rotate(-2deg); /* Leve inclinação */
+  display: inline-block;
+}
+
+/* 3. Efeito Colagem (Imagens com borda branca e sombra) */
+.collage-img {
+  border: 5px solid #fff;
+  box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+  transform: rotate(2deg);
+  transition: transform 0.3s ease;
+}
+
+.collage-img:hover {
+  transform: rotate(0deg) scale(1.02);
+  z-index: 10;
 }

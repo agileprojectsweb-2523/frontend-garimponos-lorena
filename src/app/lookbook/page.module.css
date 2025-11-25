@@ -1,0 +1,302 @@
+.main {
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  background-color: var(--bg-main);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Padrão de fundo (Pontinhos) */
+.bgGrid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--brand-grey) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+/* --- HERO --- */
+.hero {
+  text-align: center;
+  margin-bottom: 100px;
+  position: relative;
+  z-index: 10;
+  padding: 0 20px;
+}
+
+.badge {
+  background: #000;
+  color: #fff;
+  display: inline-block;
+  padding: 5px 15px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  box-shadow: 4px 4px 0px var(--brand-pink);
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 15px;
+  line-height: 0.8;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.wordSolid {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 7rem);
+  font-weight: 800;
+  color: var(--text-main);
+  text-transform: uppercase;
+  text-shadow: 4px 4px 0px var(--brand-grey);
+}
+
+.wordScript {
+  font-family: var(--font-script);
+  font-size: clamp(4.5rem, 11vw, 8rem);
+  color: var(--brand-pink);
+  font-weight: 400;
+  text-shadow: 2px 2px 0px #000;
+}
+
+.intro {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- LOOKBOOK CONTAINER --- */
+.lookbookContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 120px; /* Espaço entre os looks */
+  position: relative;
+  z-index: 10;
+}
+
+.lookSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* Inverte a ordem visual (Zig Zag) */
+.inverted .imageCol { order: 2; }
+.inverted .infoCol { order: 1; text-align: right; }
+.inverted .productList { margin-left: auto; } /* Alinha lista a direita */
+
+/* --- COLUNA IMAGEM (POLAROID) --- */
+.imageCol {
+  position: relative;
+}
+
+.polaroidFrame {
+  background: #fff;
+  padding: 15px 15px 50px 15px;
+  border: 3px solid #000;
+  box-shadow: 15px 15px 0px var(--brand-pink); /* Sombra Rosa */
+  position: relative;
+}
+
+.lookImg {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  border: 2px solid #000;
+  filter: contrast(1.1);
+}
+
+.tape {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 35px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  z-index: 20;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sticker {
+  position: absolute;
+  bottom: 20px;
+  right: -20px;
+  background: var(--neon-yellow);
+  color: #000;
+  font-family: var(--font-display);
+  font-weight: 900;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+  z-index: 20;
+}
+
+.pink { background: var(--brand-pink); color: #fff; }
+.black { background: #000; color: #fff; }
+
+/* --- COLUNA INFO --- */
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lookTitle {
+  margin-bottom: 20px;
+  line-height: 0.9;
+}
+
+.blockTitle {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+
+.scriptTitle {
+  font-family: var(--font-script);
+  font-size: 4rem;
+  color: var(--brand-grey);
+  text-shadow: 1px 1px 0px #000;
+}
+
+.lookDesc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 30px;
+  line-height: 1.5;
+  max-width: 450px;
+  /* No modo invertido, alinha a direita */
+  margin-left: 0; 
+}
+.inverted .lookDesc { margin-left: auto; }
+
+/* LISTA DE PRODUTOS */
+.productList {
+  background: #fff;
+  border: 2px solid #000;
+  padding: 25px;
+  max-width: 400px;
+  box-shadow: 8px 8px 0px var(--brand-grey);
+  margin-bottom: 30px;
+  text-align: left; /* Sempre alinhado a esquerda dentro do box */
+}
+
+.listHeader {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #000;
+  padding-bottom: 5px;
+  color: var(--brand-pink);
+}
+
+.productItem {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: #000;
+}
+
+.prodName { flex-shrink: 0; }
+.dots {
+  flex: 1;
+  border-bottom: 2px dotted #ccc;
+  margin: 0 5px 5px 5px;
+}
+.prodPrice { color: var(--brand-grey); }
+
+.shopBtn {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  padding: 15px 40px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  border: 2px solid #000;
+  text-decoration: none;
+  transition: all 0.2s;
+  width: fit-content;
+}
+.inverted .shopBtn { margin-left: auto; }
+
+.shopBtn:hover {
+  background: var(--brand-pink);
+  box-shadow: 5px 5px 0px #000;
+  transform: translate(-2px, -2px);
+}
+
+/* FINAL CTA */
+.finalCta {
+  text-align: center;
+  margin-top: 100px;
+  padding: 60px 20px;
+  border-top: 3px solid #000;
+  background: #fff;
+}
+
+.finalCta h2 {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.btnOutline {
+  display: inline-block;
+  background: transparent;
+  color: #000;
+  border: 3px solid #000;
+  padding: 15px 50px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.btnOutline:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* RESPONSIVO */
+@media (max-width: 1024px) {
+  .lookSection {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .inverted .imageCol { order: 1; }
+  .inverted .infoCol { order: 2; text-align: left; }
+  .inverted .lookDesc { margin-left: 0; }
+  .inverted .productList { margin-left: 0; }
+  .inverted .shopBtn { margin-left: 0; }
+
+  .polaroidFrame {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .lookImg { height: 500px; }
+}

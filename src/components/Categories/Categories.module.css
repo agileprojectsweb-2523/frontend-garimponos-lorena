@@ -1,0 +1,143 @@
+.section {
+  padding: 80px 5%;
+  background-color: var(--bg-main);
+}
+
+.header {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem;
+  color: var(--text-main);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.highlight {
+  color: var(--neon-magenta);
+  font-style: italic;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* GRID LAYOUT (Bento Grid) */
+.grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr; /* Coluna esq maior que dir */
+  grid-template-rows: 400px 300px;  /* Alturas das linhas */
+  gap: 20px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Definição dos tamanhos no Grid */
+.large {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2; /* Ocupa canto sup esquerdo */
+}
+
+.small {
+  /* Os pequenos se ajustam */
+}
+
+.wide {
+  grid-column: 1 / -1; /* Ocupa a linha inteira de baixo */
+  grid-row: 2 / 3;
+}
+
+/* Estilização Interna */
+.imageWrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: filter 0.3s ease;
+}
+
+/* Filtro cinza que fica colorido no hover */
+.card:hover .image {
+  filter: contrast(1.1) saturate(1.2);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+  z-index: 2;
+}
+
+.content {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.catName {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: #fff; /* Sempre branco por estar na foto */
+  text-transform: uppercase;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.card:hover .catName {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
+}
+
+.arrow {
+  font-size: 1.5rem;
+  color: var(--neon-yellow);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.card:hover .arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr; /* Tudo em 1 coluna */
+    grid-template-rows: auto;
+    height: auto;
+  }
+
+  .large, .small, .wide {
+    grid-column: auto;
+    grid-row: auto;
+    height: 300px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+}

@@ -1,0 +1,93 @@
+.marqueeContainer {
+  width: 100%;
+  height: 70px;
+  background: var(--brand-pink); /* Rosa Choque pedido */
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  
+  /* Bordas pretas para dar acabamento "Cartoon/Teen" */
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+  
+  position: relative;
+  z-index: 20;
+  
+  /* Leve inclinação para parecer "fita mal colada" (Opcional, se quiser reto tire o transform) */
+  transform: rotate(-1deg) scale(1.01); 
+  margin: 20px 0;
+}
+
+.track {
+  white-space: nowrap;
+  will-change: transform;
+  display: flex;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* Espaço entre os blocos */
+  padding-right: 40px;
+}
+
+/* ESTILOS DE TEXTO VARIADOS */
+
+/* 1. Texto Garrafal (Oswald) */
+.bold {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  /* Sombra dura preta para contraste */
+  text-shadow: 3px 3px 0px #000; 
+}
+
+/* 2. Texto Cursivo (Mr Dafoe) */
+.script {
+  font-family: var(--font-script);
+  font-size: 2.5rem; /* Cursiva precisa ser um pouco maior */
+  color: #000; /* Preto para contrastar no Rosa */
+  font-weight: 400;
+}
+
+/* 3. Texto Vazado (Outline) */
+.outline {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 2px #fff; /* Borda Branca */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 4. Separador (Estrelinha) em Cinza */
+.separator {
+  font-size: 1.5rem;
+  color: var(--brand-grey); /* O Cinza pedido */
+  font-weight: bold;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .marqueeContainer {
+    height: 50px;
+    transform: rotate(0); /* Reto no mobile para não criar buracos */
+    margin: 0;
+  }
+
+  .bold, .outline {
+    font-size: 1.5rem;
+  }
+
+  .script {
+    font-size: 1.8rem;
+  }
+  
+  .content {
+    gap: 20px;
+  }
+}

@@ -1,66 +1,27 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Hero from '@/components/Hero/Hero';
+import Marquee from '@/components/Marquee/Marquee';
+import CategoryCarousel from '@/components/CategoryCarousel/CategoryCarousel'; // Novo componente de Carrossel
+import FeaturedDrops from '@/components/FeaturedDrops/FeaturedDrops';
+import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className={styles.main}>
+      {/* Seção 1: Hero (Fullscreen + Banner Gigante) */}
+      <Hero />
+
+      {/* Seção 2: Faixa de Movimento Infinita */}
+      <Marquee />
+
+      {/* Seção 3: Carrossel de Categorias (Substituindo o Grid antigo) */}
+      {/* Isso dá o foco individual em cada tipo de produto que a cliente queria */}
+      <CategoryCarousel />
+      
+      {/* Seção 4: Lançamentos e Produtos em Destaque */}
+      <FeaturedDrops />
+      
+      {/* Espaço extra para respiro antes do Footer (que está no layout.js) */}
+      <div style={{ height: '100px' }}></div>
+    </main>
   );
 }

@@ -1,0 +1,243 @@
+.sidebar {
+  width: 280px;
+  padding: 40px 30px;
+  background: #fff; /* Fundo Papel */
+  border: 3px solid #000; /* Borda Grossa */
+  box-shadow: 10px 10px 0px var(--brand-grey); /* Sombra Dura */
+  height: fit-content;
+  position: sticky;
+  top: 120px;
+  margin-bottom: 50px;
+}
+
+/* Fita Adesiva Decorativa */
+.tapeTop {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 100px;
+  height: 30px;
+  background: rgba(235, 104, 179, 0.5); /* Rosa Transparente */
+  backdrop-filter: blur(2px);
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.filterGroup {
+  margin-bottom: 40px;
+  border-bottom: 2px dashed #eee; /* Linha de caderno */
+  padding-bottom: 20px;
+}
+
+.filterGroup:last-child {
+  border-bottom: none;
+}
+
+/* Títulos com estilo Sticker */
+.groupTitle {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #000;
+  background: var(--neon-yellow);
+  display: inline-block;
+  padding: 2px 8px;
+  transform: rotate(-2deg);
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0px #000;
+}
+
+/* Categorias */
+.catList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.catBtn {
+  background: none;
+  border: none;
+  color: var(--brand-grey);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.catBtn:hover {
+  color: var(--brand-pink);
+  transform: translateX(5px);
+}
+
+.activeCat {
+  color: #000;
+  font-weight: 900;
+  font-family: var(--font-display);
+  letter-spacing: 1px;
+}
+
+.doodleArrow {
+  color: var(--brand-pink);
+  font-size: 1.2rem;
+}
+
+/* Tamanhos */
+.sizeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.sizeBtn {
+  background: transparent;
+  border: 2px solid var(--brand-grey);
+  color: var(--brand-grey);
+  padding: 8px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.sizeBtn:hover {
+  border-color: #000;
+  color: #000;
+  background: var(--neon-yellow);
+}
+
+.activeSize {
+  background: #000;
+  color: #fff !important;
+  border-color: #000;
+  box-shadow: 4px 4px 0px var(--brand-pink);
+  transform: translate(-2px, -2px);
+}
+
+/* Slider de Preço */
+.slider {
+  width: 100%;
+  accent-color: var(--brand-pink);
+  cursor: pointer;
+  height: 5px;
+  background: #ddd;
+  border-radius: 5px;
+}
+
+.priceLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #000;
+  margin-top: 10px;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.currentPrice {
+  background: var(--brand-pink);
+  color: #fff;
+  padding: 2px 5px;
+  transform: rotate(3deg);
+}
+
+/* Cores */
+.colorGrid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.colorBtn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.colorBtn:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--brand-pink);
+}
+
+.doodleBottom {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--brand-grey);
+  margin-top: 20px;
+  animation: spin 5s linear infinite;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* MOBILE HIDDEN */
+.mobileHeader {
+  display: none;
+}
+
+/* RESPONSIVO */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 85%;
+    max-width: 320px;
+    background: #fff;
+    z-index: 2000;
+    padding: 30px;
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-right: 3px solid #000;
+    border-top: none;
+    border-bottom: none;
+    border-left: none;
+    box-shadow: 100px 0 100px rgba(0,0,0,0.5);
+    overflow-y: auto;
+    margin: 0;
+  }
+
+  .open {
+    transform: translateX(0);
+  }
+
+  .mobileHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 15px;
+  }
+
+  .stickerTitle {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    background: var(--brand-pink);
+    color: #fff;
+    padding: 5px 10px;
+    border: 2px solid #000;
+    box-shadow: 3px 3px 0px #000;
+    transform: rotate(-2deg);
+  }
+
+  .closeBtn {
+    background: #000;
+    border: none;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-weight: 800;
+  }
+}

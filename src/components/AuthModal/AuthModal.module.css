@@ -1,0 +1,452 @@
+/* Fundo Escuro atrás do Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85); /* Bem escuro para focar */
+  backdrop-filter: blur(10px);
+  z-index: 5000; /* Acima de tudo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* O MODAL EM SI */
+.container {
+  background-color: var(--bg-card);
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  position: relative;
+  overflow: hidden;
+  width: 900px;
+  max-width: 95%;
+  min-height: 550px; /* Um pouco menor que a pagina inteira */
+  border: 1px solid var(--neon-cyan); /* Borda brilhante pra destacar */
+}
+
+/* --- LÓGICA DE SLIDE (Igual à pagina de login) --- */
+.formContainer {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.signInContainer { left: 0; width: 50%; z-index: 2; }
+.signUpContainer { left: 0; width: 50%; opacity: 0; z-index: 1; }
+
+.container.activePanel .signInContainer { transform: translateX(100%); }
+.container.activePanel .signUpContainer { 
+  transform: translateX(100%); opacity: 1; z-index: 5; animation: show 0.6s; 
+}
+
+@keyframes show { 0%, 49.99% { opacity: 0; z-index: 1; } 50%, 100% { opacity: 1; z-index: 5; } }
+
+/* --- OVERLAY MÁGICO (Slide + Cor) --- */
+.overlayContainer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+}
+
+.container.activePanel .overlayContainer { transform: translateX(-100%); }
+
+.overlay {
+  background: #000;
+  background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: #FFFFFF;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+/* Overlay de Cor Dinâmica */
+.overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, rgba(0, 225, 255, 0.7), rgba(139, 0, 255, 0.7)); /* CIANO */
+  mix-blend-mode: hard-light;
+  transition: background 0.6s ease-in-out;
+}
+
+.container.activePanel .overlay::before {
+  background: linear-gradient(45deg, rgba(255, 0, 84, 0.7), rgba(255, 208, 0, 0.7)); /* MAGENTA */
+}
+
+.container.activePanel .overlay { transform: translateX(50%); }
+
+.overlayPanel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+  z-index: 2;
+}
+
+.overlayLeft { transform: translateX(-20%); }
+.container.activePanel .overlayLeft { transform: translateX(0); }
+.overlayRight { right: 0; transform: translateX(0); }
+.container.activePanel .overlayRight { transform: translateX(20%); }
+
+/* ESTILIZAÇÃO INTERNA */
+.form {
+  background-color: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+}
+
+.title { font-family: var(--font-display); font-size: 2rem; margin-bottom: 10px; color: var(--text-main); text-transform: uppercase; }
+.overlayTitle { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
+.overlayText { margin: 20px 0 30px; font-size: 0.9rem; }
+
+.inputGroup { width: 100%; margin: 20px 0; display: flex; flex-direction: column; gap: 10px; }
+.input {
+  background-color: var(--bg-main);
+  border: 1px solid var(--bg-structure);
+  padding: 12px 15px;
+  width: 100%;
+  color: var(--text-main);
+  outline: none;
+}
+.input:focus { border-color: var(--neon-cyan); }
+
+.actionBtn {
+  background-color: var(--neon-cyan);
+  color: #000;
+  font-weight: 800;
+  padding: 12px 45px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: var(--font-display);
+}
+.actionBtn:hover { background-color: var(--neon-magenta); color: #fff; }
+
+.ghostBtn {
+  background-color: transparent;
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  font-weight: 800;
+  padding: 12px 45px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-family: var(--font-display);
+}
+.ghostBtn:hover { background: #fff; color: #000; }
+
+.socialContainer { margin: 10px 0; display: flex; gap: 10px; }
+.socialBtn {
+  border: 1px solid var(--bg-structure);
+  background: transparent;
+  color: var(--text-main);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  font-family: var(--font-display);
+}
+.divider { font-size: 0.8rem; color: var(--text-muted); margin: 10px 0; }
+.forgotPass { color: var(--text-muted); font-size: 0.8rem; margin: 10px 0; }
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .container { width: 100%; height: 100vh; border-radius: 0; border: none; }
+  .overlayContainer { display: none; } /* No mobile, simplifica sem overlay animado */
+  .signInContainer, .signUpContainer { width: 100%; z-index: 5; }
+  .container:not(.activePanel) .signUpContainer { display: none; }
+  .container.activePanel .signInContainer { display: none; }
+  .container.activePanel .signUpContainer { transform: none; display: flex; }
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85); /* Fundo bem escuro */
+  backdrop-filter: blur(8px);
+  z-index: 9999; /* Acima de tudo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContainer {
+  background-color: #fff;
+  border-radius: 0px; /* Quadrado estilo card */
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+  width: 850px;
+  max-width: 95%;
+  min-height: 550px;
+  border: 4px solid #000; /* Borda Grossa Cartoon */
+  display: flex;
+}
+
+/* --- LÓGICA DE SLIDER --- */
+.formContainer {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transition: all 0.6s ease-in-out;
+  background: #fff;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  height: 100%;
+  text-align: center;
+}
+
+.signInContainer { left: 0; z-index: 2; }
+.signUpContainer { left: 0; opacity: 0; z-index: 1; }
+
+/* Animação de troca */
+.modalContainer.activePanel .signInContainer { transform: translateX(100%); }
+.modalContainer.activePanel .signUpContainer { 
+  transform: translateX(100%); 
+  opacity: 1; 
+  z-index: 5; 
+  animation: show 0.6s; 
+}
+
+@keyframes show { 
+  0%, 49.99% { opacity: 0; z-index: 1; } 
+  50%, 100% { opacity: 1; z-index: 5; } 
+}
+
+/* --- OVERLAY (Lado Colorido) --- */
+.overlayContainer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+}
+
+.modalContainer.activePanel .overlayContainer { transform: translateX(-100%); }
+
+.overlay {
+  /* Gradiente Rosa da Marca */
+  background: linear-gradient(135deg, var(--brand-pink), #ff8cc6);
+  /* Pattern sutil */
+  background-image: radial-gradient(#fff 1px, transparent 1px);
+  background-size: 20px 20px;
+  
+  color: #FFFFFF;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+  border-left: 4px solid #000;
+  border-right: 4px solid #000;
+}
+
+.modalContainer.activePanel .overlay { transform: translateX(50%); }
+
+.overlayPanel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 30px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlayLeft { transform: translateX(-20%); }
+.modalContainer.activePanel .overlayLeft { transform: translateX(0); }
+.overlayRight { right: 0; transform: translateX(0); }
+.modalContainer.activePanel .overlayRight { transform: translateX(20%); }
+
+/* --- TIPOGRAFIA & ELEMENTOS --- */
+.title { 
+  font-family: var(--font-display); 
+  font-size: 2.5rem; 
+  margin-bottom: 15px; 
+  color: #000;
+  text-transform: uppercase;
+  line-height: 0.9;
+}
+
+.overlayTitle {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  line-height: 0.9;
+  text-shadow: 3px 3px 0px #000;
+}
+
+.scriptWhite {
+  font-family: var(--font-script);
+  font-weight: 400;
+  text-transform: none;
+}
+
+.overlayText {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+/* Inputs */
+.input { 
+  background-color: #f9f9f9; 
+  border: 2px solid #000; 
+  padding: 12px 15px; 
+  margin: 8px 0; 
+  width: 100%; 
+  color: #000; 
+  font-family: var(--font-body);
+  font-weight: 600;
+  outline: none; 
+}
+
+.input:focus { 
+  box-shadow: 4px 4px 0px var(--brand-pink);
+}
+
+/* Botões */
+.actionBtn { 
+  background-color: #000; 
+  color: #fff; 
+  font-weight: 800; 
+  padding: 12px 40px; 
+  margin-top: 20px; 
+  border: 2px solid #000; 
+  cursor: pointer; 
+  font-family: var(--font-display); 
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.actionBtn:hover {
+  background-color: var(--brand-pink);
+  box-shadow: 4px 4px 0px #000;
+  transform: translate(-2px, -2px);
+}
+
+.ghostBtn { 
+  background-color: transparent; 
+  border: 3px solid #fff; 
+  color: #fff; 
+  font-weight: 800; 
+  padding: 12px 40px; 
+  margin-top: 15px; 
+  cursor: pointer; 
+  font-family: var(--font-display); 
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0px #000;
+  transition: all 0.2s;
+}
+
+.ghostBtn:hover {
+  background-color: #fff;
+  color: #000;
+  transform: translate(-2px, -2px);
+}
+
+/* Social & Extras */
+.socialContainer { display: flex; gap: 10px; margin: 15px 0; }
+.socialBtn { 
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  border: 2px solid #000; 
+  background: #fff; 
+  color: #000; 
+  cursor: pointer; 
+  font-weight: 800;
+  transition: all 0.2s;
+}
+.socialBtn:hover { background: var(--brand-pink); color: #fff; }
+
+.divider { font-size: 0.8rem; color: var(--brand-grey); margin: 10px 0 20px; font-weight: 700; text-transform: uppercase; }
+.forgotPass { color: var(--brand-grey); font-size: 0.8rem; margin: 15px 0; font-weight: 600; text-decoration: underline; }
+
+.closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #000;
+  border: none;
+  color: #fff;
+  width: 35px;
+  height: 35px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 200;
+  font-weight: 800;
+}
+.closeBtn:hover { background: var(--brand-pink); }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .modalContainer { min-height: 600px; width: 100%; border-radius: 0; border: none; flex-direction: column; }
+  .overlayContainer { display: none; } /* Simplifica no mobile, sem slide */
+  
+  /* Mostra um, esconde outro via CSS simples */
+  .signInContainer, .signUpContainer { width: 100%; position: relative; padding: 20px; }
+  
+  .modalContainer:not(.activePanel) .signUpContainer { display: none; }
+  .modalContainer.activePanel .signInContainer { display: none; }
+  .modalContainer.activePanel .signUpContainer { transform: none; opacity: 1; display: flex; }
+  
+  /* Adiciona botões manuais no form mobile */
+  .form::after {
+    content: "Trocar para Cadastro/Login";
+    margin-top: 20px;
+    color: var(--brand-pink);
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

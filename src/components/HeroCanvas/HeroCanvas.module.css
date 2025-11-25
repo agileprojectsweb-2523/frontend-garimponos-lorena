@@ -1,0 +1,39 @@
+.canvasContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Z-index 1 garante que fique atrás do texto e dos botões (que devem ser z-index 10 ou mais) */
+  z-index: 1; 
+  
+  /* IMPORTANTE: pointer-events: none é obrigatório aqui.
+     Isso permite que o mouse "atravesse" o canvas e consiga 
+     clicar nos botões e selecionar textos que estão por cima. */
+  pointer-events: none; 
+
+  /* Garante que o canvas não ultrapasse os limites da seção */
+  overflow: hidden;
+
+  /* Animação de entrada */
+  opacity: 0;
+  animation: fadeInCanvas 2s ease-out forwards;
+}
+
+/* Animação para o 3D surgir suavemente do escuro/claro */
+@keyframes fadeInCanvas {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1; 
+  }
+}
+
+/* Se precisar forçar o canvas a preencher a tela em monitores ultrawide */
+.canvasContainer canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}

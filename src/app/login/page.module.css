@@ -1,0 +1,423 @@
+.main {
+  background-color: var(--bg-main);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  padding-top: 80px; /* Espaço do Header */
+  overflow: hidden;
+  position: relative;
+}
+
+/* Fundo Decorativo (Opcional) */
+.main::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 10% 10%, rgba(255, 0, 84, 0.1), transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(0, 225, 255, 0.1), transparent 40%);
+  z-index: 0;
+}
+
+/* O BLOCO PRINCIPAL */
+.container {
+  background-color: var(--bg-card);
+  border-radius: 20px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  position: relative;
+  overflow: hidden;
+  width: 900px;
+  max-width: 100%;
+  min-height: 600px;
+  border: 1px solid var(--bg-structure);
+  z-index: 1;
+}
+
+/* FORMULÁRIOS */
+.formContainer {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.form {
+  background-color: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+}
+
+/* Configuração de Login vs Cadastro */
+.signInContainer {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.signUpContainer {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+/* ANIMAÇÃO DE TROCA (A Mágica acontece aqui) */
+.container.activePanel .signInContainer {
+  transform: translateX(100%); /* Login vai pra direita e some */
+}
+
+.container.activePanel .signUpContainer {
+  transform: translateX(100%); /* Cadastro vai pra direita e aparece */
+  opacity: 1;
+  z-index: 5;
+  animation: show 0.6s;
+}
+
+@keyframes show {
+  0%, 49.99% { opacity: 0; z-index: 1; }
+  50%, 100% { opacity: 1; z-index: 5; }
+}
+
+/* OVERLAY (A parte colorida/imagem que desliza) */
+.overlayContainer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+}
+
+.container.activePanel .overlayContainer {
+  transform: translateX(-100%); /* Desliza para a esquerda */
+}
+
+.overlay {
+  background: #000;
+  /* Imagem de fundo Cyberpunk/Street */
+  background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #FFFFFF;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%; /* Dobro do tamanho para o efeito parallax */
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+/* Filtro escuro por cima da imagem */
+.overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: grayscale(100%) contrast(1.2); /* Estilo preto e branco chique */
+}
+
+.container.activePanel .overlay {
+  transform: translateX(50%); /* Move a imagem internamente */
+}
+
+.overlayPanel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+  z-index: 2; /* Acima da imagem */
+}
+
+.overlayLeft {
+  transform: translateX(-20%); /* Começa deslocado */
+}
+
+.container.activePanel .overlayLeft {
+  transform: translateX(0); /* Entra em cena */
+}
+
+.overlayRight {
+  right: 0;
+  transform: translateX(0);
+}
+
+.container.activePanel .overlayRight {
+  transform: translateX(20%); /* Sai de cena */
+}
+
+/* ESTILOS DOS ELEMENTOS */
+.title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+
+.overlayTitle {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.divider {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 15px 0;
+}
+
+.inputGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.input {
+  background-color: var(--bg-main);
+  border: 1px solid var(--bg-structure);
+  padding: 15px;
+  width: 100%;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input:focus {
+  border-color: var(--neon-cyan);
+}
+
+.socialContainer {
+  margin: 10px 0;
+  display: flex;
+  gap: 15px;
+}
+
+.socialBtn {
+  border: 1px solid var(--bg-structure);
+  background: transparent;
+  color: var(--text-main);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: var(--font-display);
+}
+
+.socialBtn:hover {
+  border-color: var(--neon-magenta);
+  color: var(--neon-magenta);
+}
+
+.forgotPass {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-decoration: none;
+  margin: 10px 0 20px;
+  border-bottom: 1px solid transparent;
+}
+
+.forgotPass:hover {
+  border-color: var(--text-muted);
+}
+
+.actionBtn {
+  background-color: var(--neon-cyan);
+  color: #000;
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 15px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: var(--font-display);
+}
+
+.actionBtn:hover {
+  background-color: var(--neon-magenta);
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(255, 0, 84, 0.4);
+}
+
+/* Botão "Fantasma" (Transparente) do Overlay */
+.ghostBtn {
+  background-color: transparent;
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 15px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 80ms ease-in, background 0.3s;
+  margin-top: 20px;
+  font-family: var(--font-display);
+}
+
+.ghostBtn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.overlayText {
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px;
+  max-width: 80%;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    min-height: 100vh; /* Tela cheia no mobile */
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .signInContainer, .signUpContainer {
+    width: 100%; /* Ocupam tudo */
+    padding: 0 20px;
+  }
+
+  /* No mobile, o overlay desaparece ou vira um toggle simples no topo, 
+     mas para manter esse efeito, geralmente escondemos o overlay e usamos botões simples */
+  .overlayContainer {
+    display: none;
+  }
+  
+  /* Lógica simplificada mobile: Mostra um, esconde outro via display */
+  .container:not(.activePanel) .signUpContainer { display: none; }
+  .container.activePanel .signInContainer { display: none; }
+  
+  .container.activePanel .signUpContainer { 
+    transform: none; 
+    animation: none; 
+    display: flex;
+    opacity: 1;
+    z-index: 5;
+  }
+  
+  /* Adicionar botões manuais de troca no mobile dentro do form */
+  .form::after {
+    content: "Don't have an account? Sign Up";
+    margin-top: 20px;
+    color: var(--neon-cyan);
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+}
+
+/* ... (MANTENHA O CSS DO CONTAINER E FORMULÁRIOS IGUAL AO ANTERIOR) ... */
+
+/* --- O FUNDO MÁGICO (OVERLAY) --- */
+.overlayContainer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+}
+
+.container.activePanel .overlayContainer {
+  transform: translateX(-100%);
+}
+
+.overlay {
+  background: #000;
+  /* Imagem de fundo (Tóquio/Cyberpunk) */
+  background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #FFFFFF;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+/* 
+   A MÁGICA DA COR: 
+   Usamos um pseudo-elemento por cima da imagem para pintar ela.
+*/
+.overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  
+  /* ESTADO 1 (LOGIN): Tonalidade CIANO / ROXO (Frio) */
+  background: linear-gradient(45deg, rgba(0, 225, 255, 0.7), rgba(139, 0, 255, 0.7));
+  
+  /* Mistura a cor com a imagem */
+  mix-blend-mode: hard-light; 
+  
+  /* Transição suave da cor */
+  transition: background 0.6s ease-in-out;
+  z-index: 1;
+}
+
+/* ESTADO 2 (CADASTRO): Tonalidade MAGENTA / LARANJA (Quente) */
+.container.activePanel .overlay::before {
+  background: linear-gradient(45deg, rgba(255, 0, 84, 0.7), rgba(255, 208, 0, 0.7));
+}
+
+/* Ajuste do movimento da imagem (Parallax) */
+.container.activePanel .overlay {
+  transform: translateX(50%);
+}
+
+/* PAINÉIS DE TEXTO (Para ficarem acima da cor) */
+.overlayPanel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+  z-index: 2; /* Garante que o texto fique acima do filtro de cor */
+}
+
+/* ... (MANTENHA O RESTO DO ARQUIVO: overlayLeft, overlayRight, titles, buttons etc.) ... */

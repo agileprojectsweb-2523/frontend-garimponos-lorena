@@ -1,0 +1,198 @@
+.section {
+  padding: 80px 0;
+  background: var(--bg-main);
+  overflow: hidden;
+}
+
+.header {
+  padding: 0 5%;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/* Título "ESCOLHA SUA" com Efeito Sticker Capricho */
+.title {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  /* Cor Cinza Sólida */
+  color: var(--brand-grey); 
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: 800;
+  
+  /* Borda Preta Grossa + Sombra Preta Dura = Efeito Sticker */
+  -webkit-text-stroke: 2px #000; 
+  text-shadow: 4px 4px 0px #000;
+}
+
+/* Fonte Cursiva "Vibe" */
+.scriptHighlight { 
+  font-family: var(--font-script);
+  color: var(--brand-pink);
+  font-size: 4.5rem; /* Bem grande */
+  text-transform: none;
+  margin-left: 15px;
+  text-shadow: 2px 2px 0px #000;
+  position: relative;
+  top: 10px; /* Ajuste visual */
+}
+
+.arrows {
+  font-family: var(--font-display);
+  color: var(--brand-grey);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  border: 2px solid var(--brand-grey);
+  padding: 8px 15px;
+  background: #fff;
+  box-shadow: 3px 3px 0px var(--brand-grey);
+}
+
+.carouselContainer {
+  width: 100%;
+  cursor: grab;
+  padding-left: 5%;
+  padding-bottom: 40px; /* Espaço para a sombra grande */
+}
+
+.carouselContainer:active {
+  cursor: grabbing;
+}
+
+.track {
+  display: flex;
+  gap: 40px;
+  width: fit-content;
+  padding-right: 5%;
+}
+
+.cardLink {
+  text-decoration: none;
+}
+
+.card {
+  width: 320px;
+  height: 480px;
+  position: relative;
+  overflow: hidden;
+  
+  /* Borda preta grossa estilo cartoon */
+  border: 3px solid #000; 
+  
+  /* PADRÃO: Sombra ROSA CHOQUE */
+  box-shadow: 12px 12px 0px var(--brand-pink);
+  
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  /* HOVER: Sombra CINZA */
+  box-shadow: 12px 12px 0px var(--brand-grey);
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  z-index: 1;
+}
+
+.cardContent {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  right: 20px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centralizado para ficar mais poster */
+  text-align: center;
+}
+
+.sub {
+  font-family: var(--font-script);
+  font-size: 1.8rem;
+  color: var(--brand-pink); /* Subtítulo em Rosa */
+  margin-bottom: 0px;
+  transform: rotate(-5deg);
+  text-shadow: 1px 1px 0px #000;
+}
+
+.catName {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: #fff;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+  line-height: 0.9;
+  font-weight: 800;
+  text-shadow: 2px 2px 0px #000;
+}
+
+.btn {
+  /* PADRÃO: Botão Rosa */
+  background: var(--brand-pink);
+  color: #fff;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 800;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0px #000; /* Sombra dura preta */
+  transition: all 0.2s;
+}
+
+.card:hover .btn {
+  /* HOVER: Botão Cinza */
+  background: var(--brand-grey);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000; /* Efeito de clique */
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .card {
+    width: 270px;
+    height: 400px;
+  }
+  
+  .title { 
+    font-size: 2.2rem; 
+  }
+  
+  .scriptHighlight {
+    font-size: 3rem;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .arrows { display: none; } /* Esconde setas no mobile pq é intuitivo */
+}

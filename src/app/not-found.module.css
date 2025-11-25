@@ -1,0 +1,132 @@
+.container {
+  height: 100vh;
+  width: 100%;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  padding: 20px;
+}
+
+.errorCode {
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 20vw, 15rem);
+  font-weight: 800;
+  line-height: 0.8;
+  color: var(--text-main);
+  position: relative;
+  margin: 0;
+}
+
+/* Efeito Glitch Intenso */
+.errorCode::before,
+.errorCode::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.errorCode::before {
+  color: var(--neon-magenta);
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  animation: glitchTop 2s infinite linear alternate-reverse;
+  transform: translate(-2px, 2px);
+}
+
+.errorCode::after {
+  color: var(--neon-cyan);
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  animation: glitchBot 1.5s infinite linear alternate-reverse;
+  transform: translate(2px, -2px);
+}
+
+@keyframes glitchTop {
+  0% { clip-path: inset(10% 0 60% 0); }
+  20% { clip-path: inset(80% 0 5% 0); }
+  40% { clip-path: inset(30% 0 20% 0); }
+  60% { clip-path: inset(10% 0 80% 0); }
+  100% { clip-path: inset(40% 0 10% 0); }
+}
+
+@keyframes glitchBot {
+  0% { clip-path: inset(50% 0 30% 0); }
+  20% { clip-path: inset(10% 0 60% 0); }
+  40% { clip-path: inset(80% 0 5% 0); }
+  100% { clip-path: inset(20% 0 40% 0); }
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 4px;
+  color: var(--neon-yellow);
+  margin-bottom: 20px;
+}
+
+.description {
+  color: var(--text-muted);
+  max-width: 400px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.homeBtn {
+  display: inline-block;
+  padding: 15px 40px;
+  background: transparent;
+  border: 1px solid var(--text-main);
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.homeBtn:hover {
+  background: var(--text-main);
+  color: #000;
+  box-shadow: 0 0 20px rgba(255,255,255,0.5);
+}
+
+/* Efeitos de TV Antiga */
+.noise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.scanline {
+  width: 100%;
+  height: 100px;
+  z-index: 5;
+  background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0, 225, 255, 0.1) 50%, rgba(0,0,0,0) 100%);
+  opacity: 0.1;
+  position: absolute;
+  bottom: 100%;
+  animation: scanline 10s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanline {
+  0% { bottom: 100%; }
+  100% { bottom: -100%; }
+}
