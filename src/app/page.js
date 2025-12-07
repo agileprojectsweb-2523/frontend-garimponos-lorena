@@ -19,7 +19,6 @@ export default function Home() {
 
       {/* Seção 3: O Spotlight da Fundadora (Estilo Instagram) */}
       <FounderSpotlight />
-<ShippingSection /> 
 <ResellerSection />
 
       {/* Seção 4: Carrossel de Categorias */}
