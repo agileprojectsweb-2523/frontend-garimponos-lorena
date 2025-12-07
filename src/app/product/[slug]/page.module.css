@@ -616,6 +616,6 @@
 
 .measurementValue {
   color: var(--brand-grey);
-  text-align: right;
+  text-align: left;
   font-family: 'Courier New', monospace;
 }
