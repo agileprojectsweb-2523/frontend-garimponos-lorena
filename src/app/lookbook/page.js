@@ -13,7 +13,7 @@ export default function LookbookPage() {
   useEffect(() => {
     const fetchLooks = async () => {
       try {
-        const response = await api.get('/products', { params: { category: 'Acessórios' } });
+        const response = await api.get('/products', { params: { is_accessory: true } });
         const data = response.data.data || [];
 
         const mappedLooks = data.map((prod, index) => {

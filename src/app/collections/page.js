@@ -7,40 +7,44 @@ import styles from './page.module.css';
 import api from '@/services/api';
 
 export default function CollectionsPage() {
-  const [collections, setCollections] = useState([]);
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filterType, setFilterType] = useState('CATEGORIAS'); // CATEGORIAS or MARCAS
 
   useEffect(() => {
-    const fetchCollections = async () => {
-      try {
-        const response = await api.get('/categories');
-        const data = Array.isArray(response.data) ? response.data : (response.data.data || []);
+    fetchData();
+  }, [filterType]);
 
-        const mappedCollections = data.map((cat, index) => {
-          const stickers = ["NEW", "HOT", "SALE", "TREND"];
-          const colors = ["pink", "black", "green"];
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      let endpoint = filterType === 'CATEGORIAS' ? '/categories' : '/brands';
+      const response = await api.get(endpoint);
+      const data = Array.isArray(response.data) ? response.data : (response.data.data || []);
 
-          return {
-            id: cat.id,
-            title: cat.name.toUpperCase(),
-            subtitle: "Collection",
-            desc: cat.description || "Peças únicas com preços incríveis.",
-            image: cat.image || 'https://via.placeholder.com/600x800?text=COLLECTION',
-            sticker: stickers[index % stickers.length],
-            stickerColor: colors[index % colors.length]
-          };
-        });
+      const mappedItems = data.map((item, index) => {
+        const stickers = ["NEW", "HOT", "SALE", "TREND"];
+        const colors = ["pink", "black", "green"];
 
-        setCollections(mappedCollections);
-      } catch (error) {
-        console.error("Failed to fetch collections", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+        return {
+          id: item.id,
+          title: item.name.toUpperCase(),
+          subtitle: filterType === 'CATEGORIAS' ? "Collection" : "Brand",
+          desc: item.description || (filterType === 'CATEGORIAS' ? "Peças únicas com preços incríveis." : "As melhores marcas do mercado."),
+          image: (filterType === 'CATEGORIAS' ? item.image : item.logo) || 'https://via.placeholder.com/600x800?text=IMAGE',
+          sticker: stickers[index % stickers.length],
+          stickerColor: colors[index % colors.length],
+          type: filterType
+        };
+      });
 
-    fetchCollections();
-  }, []);
+      setItems(mappedItems);
+    } catch (error) {
+      console.error("Failed to fetch data", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className={styles.main}>
@@ -57,6 +61,24 @@ export default function CollectionsPage() {
         <p className={styles.description}>
           Explore nossos universos. Do <strong>Outlet</strong> ao <strong>Hype</strong>.
         </p>
+
+        {/* FILTER TOGGLE */}
+        <div className="flex justify-center gap-4 mt-8">
+          <button
+            onClick={() => setFilterType('CATEGORIAS')}
+            className={`px-6 py-2 font-bold border-2 border-black transition-all ${filterType === 'CATEGORIAS' ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100'}`}
+            style={{ fontFamily: 'Oswald' }}
+          >
+            CATEGORIAS
+          </button>
+          <button
+            onClick={() => setFilterType('MARCAS')}
+            className={`px-6 py-2 font-bold border-2 border-black transition-all ${filterType === 'MARCAS' ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100'}`}
+            style={{ fontFamily: 'Oswald' }}
+          >
+            MARCAS
+          </button>
+        </div>
       </section>
 
       {/* GRID RETO */}
@@ -76,13 +98,17 @@ export default function CollectionsPage() {
               <span style={{ fontFamily: 'Oswald', fontSize: '1.5rem', opacity: 0.5, animation: 'pulse 1s infinite' }}>LOADING...</span>
             </div>
           ))
-        ) : collections.length === 0 ? (
+        ) : items.length === 0 ? (
           <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px', border: '2px dashed #000' }}>
-            <h3 style={{ fontFamily: 'Oswald', fontSize: '2rem' }}>NENHUMA COLEÇÃO ENCONTRADA</h3>
+            <h3 style={{ fontFamily: 'Oswald', fontSize: '2rem' }}>NENHUM ITEM ENCONTRADO</h3>
           </div>
         ) : (
-          collections.map((col) => (
-            <Link href={`/shop?category=${col.title}`} key={col.id} className={styles.cardWrapper}>
+          items.map((item) => (
+            <Link
+              href={item.type === 'CATEGORIAS' ? `/shop?category=${item.title}` : `/shop?brand=${item.title}`}
+              key={item.id}
+              className={styles.cardWrapper}
+            >
               <motion.div
                 className={styles.posterCard}
                 whileHover={{ y: -10, boxShadow: "15px 15px 0px #eb68b3" }}
@@ -94,21 +120,21 @@ export default function CollectionsPage() {
                 <div className={styles.tape}></div>
 
                 {/* Sticker Reto */}
-                <div className={`${styles.sticker} ${styles[col.stickerColor]}`}>
-                  {col.sticker}
+                <div className={`${styles.sticker} ${styles[item.stickerColor]}`}>
+                  {item.sticker}
                 </div>
 
                 <div className={styles.imageFrame}>
-                  <img src={col.image} alt={col.title} />
+                  <img src={item.image} alt={item.title} className="object-cover w-full h-full" />
                 </div>
 
                 <div className={styles.info}>
                   <div className={styles.titleGroup}>
-                    <span className={styles.titleMain}>{col.title}</span>
-                    <span className={styles.titleSub}>{col.subtitle}</span>
+                    <span className={styles.titleMain}>{item.title}</span>
+                    <span className={styles.titleSub}>{item.subtitle}</span>
                   </div>
                   <div className={styles.divider}></div>
-                  <p className={styles.colDesc}>{col.desc}</p>
+                  <p className={styles.colDesc}>{item.desc}</p>
                   <button className={styles.viewBtn}>EXPLORAR</button>
                 </div>
 
