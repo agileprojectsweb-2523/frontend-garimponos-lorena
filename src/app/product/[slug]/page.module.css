@@ -577,3 +577,45 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* MEASUREMENTS TABLE */
+.measurementsTableWrapper {
+  margin-top: 20px;
+  border-top: 1px dashed #ccc;
+  padding-top: 15px;
+}
+
+.measurementsTitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.measurementsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.measurementsTable td {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.measurementsTable tr:last-child td {
+  border-bottom: none;
+}
+
+.measurementLabel {
+  font-weight: 800;
+  color: #000;
+  width: 40%;
+}
+
+.measurementValue {
+  color: var(--brand-grey);
+  text-align: right;
+  font-family: 'Courier New', monospace;
+}
